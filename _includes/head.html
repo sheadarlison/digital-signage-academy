@@ -1,0 +1,40 @@
+<head>
+    <base href="{{site.basehref}}">
+
+    <meta name="google-site-verification" content="TlOPTOwxW_tar1Ahw1CMuBOhby7fdny45la5-RQrmyw" />
+
+    <link rel="stylesheet" href="{{ "assets/css/main.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ "assets/components/rv-common-style/dist/css/rise.min.css" | prepend: site.baseurl }}">
+    <link rel="canonical" href="https://help.risevision.com/" itemprop="url">
+
+    <link rel="icon" href="{% raw %}{{favicon}}{% endraw %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% raw %}{{favicon}}{% endraw %}" type="image/x-icon">
+
+    <meta name="fragment" content="!" />
+
+    <meta name="prerender-status-code" content="{% raw %}{{httpcode}}{% endraw %}">
+    <!-- *** Meta Tag *** -->
+    <!-- Place this data between the <head> tags of your website -->
+    <title itemprop='name' ng-bind="title"></title>
+
+    <meta name="description" content="{% raw %}{{description}}{% endraw %}" />
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="{% raw %}{{title}}{% endraw %}">
+    <meta itemprop="description" content="{% raw %}{{description}}{% endraw %}">
+    <meta itemprop="image" content="{% raw %}{{image}}{% endraw %}">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@RiseVision">
+    <meta name="twitter:title" content="{% raw %}{{title}}{% endraw %}">
+    <meta name="twitter:description" content="{% raw %}{{description}}{% endraw %}">
+    <meta name="twitter:image:src" content="{% raw %}{{image}}{% endraw %}">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="{% raw %}{{title}}{% endraw %}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{% raw %}{{url}}{% endraw %}" />
+    <meta property="og:image" content="{% raw %}{{image}}{% endraw %}" />
+    <meta property="og:description" content="{% raw %}{{description}}{% endraw %}" />
+</head>

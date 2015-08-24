@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'jekyll'
+gem 'jekyll-lunr-js-search', '0.1.1'
+gem 'jekyll-sitemap'
+gem 'jekyll_github_sample'

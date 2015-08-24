@@ -1,0 +1,126 @@
+<div class="col-md-3 docs-sidebar-container hidden-xs hidden-sm">
+    <div class="docs-sidebar-wrapper">
+        <div id="navigation" class="docs-sidebar">
+            <div id="linkLevel" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            {% if page.type == 'developer' %}
+                {% assign sections = site.developerSections %}
+                <a href="/developer" itemprop="url" style="display: none">developer</a>
+            {% elsif page.type == 'user' %}
+                {% assign sections = site.userSections %}
+                <a href="/user" itemprop="url" style="display: none">user</a>
+            {% endif %}
+            <!-- Docs Categories -->
+            <ul class="nav-top-ul">
+                {% if site.categories[page.type] != null %}
+                    {% assign pages = site.categories[page.type] | sort:"order"  %}
+
+                    <li>
+                        <div id="linkLevel1-{{ page.type | replace: ' ', ''}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                            <ul>
+                                {% for page in pages %}
+                                <li category="{{ page.type }}" title="{{ page.title }}">
+                                    <div id="linkLevel1{{ page.title | replace: ' ', '-'}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                                        <a class="sub-nav-link-level-1" href="{{site.absoluteurl}}{{ page.url | replace_first: '/', ''}}" itemprop="url">
+                                            <span itemprop="title">{{ page.title }}</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+              {% for section in sections %}
+                    {% assign label = section[1] %}
+                    {% assign subSections = section[2] %}
+
+                    <li>
+                        <div id="linkLevel1-{{ label | replace: ' ', ''}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                            <a class="nav-level-1-link" ng-href="" id="{{ label | replace: ' ', ''}}Link" itemprop="url">
+                                <span class="pull-right"><i class="fa fa-chevron-right"></i></span> <span itemprop="title">{{ label }}</span>
+                            </a>
+                            <!-- Sub Nav Level 1 -->
+                            <ul class="sub-nav nav-level-1">
+                                {% for subSection in subSections %}
+                                    {% assign attr = subSection[0] %}
+                                    <li class="js-sub-cat" category="{{ attr }}" title="{{ subSection[1] }}">
+                                        <div id="linkLevel2-{{ subSection[0] | replace: '/', '-'}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                                            <a ng-href="" id="{{ subSection[0] | replace: '/', '-'}}Link" class="nav-level-2-link" itemprop="url">
+                                                <span class="pull-right"><i class="fa fa-chevron-right"></i></span> <span itemprop="title">{{ subSection[1] }}</span>
+                                            </a>
+                                        <!-- Sub Nav Level 2 -->
+                                        <ul class="sub-nav nav-level-2">
+                                            {% assign pages = site.categories[attr] | sort:"order"  %}
+                                            <script> $("#{{ subSection[0] | replace: '/', '-'}}Link").attr("ng-href","{{site.absoluteurl}}{{ pages[0].url | replace_first: '/', ''}}") </script>
+                                            {% for page in pages %}
+                                                {% if page.title == subSection[1] %}
+                                                    <li>
+                                                        <div id="linkLevel3{{ page.title | replace: ' ', '-'}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                                                            <a class="sub-nav-link" href="{{site.absoluteurl}}{{ page.url | replace_first: '/', ''}}" itemprop="url">
+                                                                <span itemprop="title">Overview</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <div id="linkLevel3{{ page.title | replace: ' ', '-'}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                                                            <a class="sub-nav-link"  href="{{site.absoluteurl}}{{ page.url | replace_first: '/', ''}}" itemprop="url">
+                                                                <span itemprop="title">{{ page.title }}</span>
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <li class="back-level-2">
+                                                <a href="">
+                                                    <span class="pull-right">
+                                                    <i class="fa fa-reply"></i></span> Back
+
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    </li>
+                                {% endfor %}
+                                {% assign attr = section[0] %}
+                                {% if site.categories[attr] != null %}
+                                    {% assign pages = site.categories[attr] | sort:"order"  %}
+                                    <script> $("#{{ label | replace: ' ', ''}}Link").attr("ng-href","{{site.absoluteurl}}{{ pages[0].url | replace_first: '/', ''}}") </script>
+                                    {% for page in pages %}
+
+                                        {% if page.title == section[1] %}
+                                            <li>
+                                                <div id="linkLevel2{{ page.title | replace: ' ', '-'}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                                                    <a class="sub-nav-link" href="{{site.absoluteurl}}{{ page.url | replace_first: '/', ''}}" itemprop="url">
+                                                        <span itemprop="title">Overview</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        {% else %}
+
+                                            <li category="{{ attr }}" title="{{ page.title }}">
+                                                <div id="linkLevel2{{ page.title | replace: ' ', '-'}}" itemscope itemtype="http://data-vocabulary.org/Breadcrumb" itemprop="child">
+                                                    <a class="sub-nav-link" href="{{site.absoluteurl}}{{ page.url | replace_first: '/', ''}}" itemprop="url">
+                                                        <span itemprop="title">{{ page.title }}</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <li class="back-level-1">
+                                    <a href="">
+                                        <span class="pull-right">
+                                        <i class="fa fa-reply"></i></span> Back
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>

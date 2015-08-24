@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="risevision.documentation" itemscope itemtype="http://schema.org/Article">
+
+  {% include head.html %}
+
+  <body>
+    <analytics analytics-account-id="'UA-82239-1'"></analytics>
+    <common-header nav-options="navOptions" ng-controller="CommonHeaderNavbarCtrl" hide-shopping-cart="true" hide-help-menu="true"></common-header>
+
+      <div class="container">
+            <div ui-view></div>
+      </div>
+
+      {% include jscomponents.html %}
+
+  </body>
+</html>
+
+

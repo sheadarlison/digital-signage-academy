@@ -1,0 +1,177 @@
+$brand-primary: #2d60ad;
+
+
+
+.documentation {
+  // padding-left: 15px;
+  position: relative;
+
+  img { width: 100%; }
+
+  pre {
+    background-color: #fff;
+    border-radius: 3px;
+    max-height: 600px;
+    overflow: scroll;
+  }
+}
+
+/**
+ * Documentation Sidebar
+ */
+.docs-sidebar-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  bottom: 0px;
+  min-height: 100%;
+}
+
+.docs-sidebar-wrapper {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  background-color: darken(#f4f4f4, 3.25%);
+}
+
+.notransition {
+  -webkit-transition: none !important;
+     -moz-transition: none !important;
+      -ms-transition: none !important;
+          transition: none !important;
+}
+
+.docs-sidebar {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  -webkit-transform: translateZ(0);
+     -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+          transform: translateZ(0);
+  -webkit-transition: left 250ms ease-in-out;
+     -moz-transition: left 250ms ease-in-out;
+          transition: left 250ms ease-in-out;
+
+  ul {
+    list-style-type: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+
+      a {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 15px;
+        border-bottom: 1px solid darken(#f4f4f4, 10%);
+        display: block;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+        i:before { color: $brand-primary; font-size: 8px; }
+
+        &:hover {
+          background-color: darken(#f4f4f4, 10%);
+          i:before { color: darken($brand-primary, 15%); }
+        }
+      }
+    }
+  }
+
+  // Top Level Nav
+  .nav-top-ul {
+    position: relative;
+    width: 100%;
+  }
+
+  .sub-nav {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: none;
+
+    &.in {
+      display: block !important;
+    }
+  }
+
+  .sub-nav-link.active {
+    color: darken($brand-primary, 15%);
+    font-weight: bold;
+  }
+}
+
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+%vertical-rhythm {
+  margin-bottom: $spacing-unit / 2;
+}
+
+/**
+ * Clearfix
+ */
+%clearfix {
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/**
+ * Icons
+ */
+.icon {
+
+    > svg {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+
+        path {
+            fill: $grey-color;
+        }
+    }
+}
+
+/**
+ * Sample code
+ */
+.code-sample-wrapper pre, code {
+  font-size: 11px;
+}
+
+.github-sample-reference .meta-info {
+  word-wrap: break-word;
+}
+
+.author-info, .meta-info {
+  font-size: 12px;
+}
+
+
+
+#addDescriptionTextArea {
+  width: 30em;
+  height: 5em;
+}
+
+.top-buffer {
+  margin-top: 20px;
+}
+
+.app-registration-images{
+  width: 80%;
+  height: 60%;
+}

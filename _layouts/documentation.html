@@ -1,0 +1,177 @@
+{% if page.notFound %}
+    {% assign httpCode = 404 %}
+{% else %}
+    {% assign httpCode = 200 %}
+{% endif %}
+<page title="{{page.title}}"
+      description="{{page.excerpt | strip_html}}"
+      url="{{site.absoluteurl}}{{page.url}}"
+      image="{{site.metaImageUrl}}/{{page.type}}-documentation.png"
+      favicon="{{site.faviconUrl}}/{{page.favicon}}"
+      httpcode="{{httpCode}}"></page>
+<!-- App Header -->
+<div class="app-header">
+    <div class="title-block">
+        {% if page.type == 'developer' %}
+            <h1>{% raw %}  {{'DEVELOPER_DOCS' | translate}} {% endraw %}</h1>
+        {% elsif page.type == 'user' %}
+            <h1>{% raw %}{{'USER_DOCS' | translate}}{% endraw %}</h1>
+        {% endif %}
+    </div>
+
+    <div class="global-actions">
+        {% include search.form.html%}
+    </div>
+</div>
+
+<!-- Docs nav for mobile -->
+{% include mobile-nav.html %}
+
+<div class="row documentation">
+
+    <!-- Docs Nav Sidebar -->
+    {% include sidebar.html %}
+
+    <!-- Main Content -->
+    <div id="expand-vertically" class="col-md-offset-3 col-md-9">
+        <div class="row">
+            <!-- Search Results -->
+            {% include search.result.html%}
+
+            <!-- Main Content -->
+            <div class="content-col">
+                {% include content.html %}
+            </div>
+            <!-- Code Sample -->
+            <div class="code-sample-col col-md-6">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(function() {
+
+        // Expand content div to fill vertical space
+        $("#expand-vertically").css('min-height', $(document).height());
+        $(window).resize(function(){
+            $("#expand-vertically").css('min-height', $(document).height());
+        });
+
+        var navTopUL = $(".nav-top-ul");
+        var docsSidebar = $(".docs-sidebar");
+
+        // Get the current url
+        var url = document.URL;
+        // Mobile Nav select the current page
+        // in the <select> dropdown
+        $(".docs-nav option").filter(function() {
+            return (url.indexOf($(this).val()) !== -1);
+        }).prop("selected", true);
+        // Desktop Nav highlight the current page
+        $(".sub-nav-link").filter(function() {
+            if (url.indexOf($(this).attr("href")) !== -1) {
+                $(this).addClass("active");
+
+                var parents = $(this).parents(".sub-nav");
+                parents.toggleClass("in");
+
+                docsSidebar.addClass('notransition');
+                docsSidebar.css({
+                    left: parents.length === 2 ? "-200%" : "-100%"
+                });
+                docsSidebar[0].offsetHeight;
+                docsSidebar.removeClass('notransition');
+            }
+        });
+
+        // Go to Sub Nav Level 1
+        $(".nav-level-1-link").on('click',function(e) {
+            docsSidebar.css({
+                left: "-100%"
+            });
+            $(this).siblings(".sub-nav.nav-level-1").toggleClass("in");
+        });
+        // Go to Sub Nav Level 2
+
+        $(".nav-level-2-link").on('click', function(e) {
+            docsSidebar.css({
+                left: "-200%"
+            });
+            $(this).siblings(".sub-nav.nav-level-2").toggleClass("in");
+        });
+
+        // Back from level 1
+        $(".back-level-1").click(function(e) {
+            docsSidebar.css({
+                left: "0"
+            });
+            var navLevel1 = $(this).parent();
+            docsSidebar.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
+                navLevel1.toggleClass("in");
+                $(this).unbind( "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd" );
+            });
+            e.stopPropagation();
+        });
+        // Back from level 2
+        $(".back-level-2").click(function(e) {
+            docsSidebar.css({
+                left: "-100%"
+            });
+            var navLevel2 = $(this).parent();
+            docsSidebar.on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function () {
+                navLevel2.toggleClass("in");
+                $(this).unbind( "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd" );
+            });
+            e.stopPropagation();
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function() {
+       $("#search-query").lunrSearch({
+            indexUrl: "{{ site.baseurl }}search.json",             // URL of the `search.json` index data for your site
+            results:  "#search-results",          // jQuery selector for the search results container
+            entries:  ".entries",                 // jQuery selector for the element to contain the results list, must be a child of the results element above.
+            template: "#search-results-template",  // jQuery selector for the Mustache.js template
+            category: "{{page.type}}/"
+       });
+    });
+</script>
+
+<script type="text/javascript">
+    $("select.docs-nav").change(function() {
+        window.location = $(this).find("option:selected").val();
+    });
+</script>
+
+{% raw %}
+<script id="search-results-template" type="text/mustache">
+          {{#entries}}
+            <article>
+              <h3>
+                <a href="{% endraw %}{{site.absoluteurl}}{% raw %}{{url}}">{{title}}</a>
+              </h3>
+            </article>
+          {{/entries}}
+        </script>
+{% endraw %}
+
+
+<script>
+    var codeSampleWrapper = $(".code-sample-wrapper");
+
+    if (codeSampleWrapper.length > 0) {
+        $(".code-sample-wrapper").appendTo(".code-sample-col");
+        $(".content-col").addClass("col-md-6");
+    } else {
+        $(".content-col").addClass("col-md-12");
+    }
+
+</script>
+
+<script>
+    $(".content").find("table").addClass("table table-bordered table-condensed");
+</script>

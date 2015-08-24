@@ -1,0 +1,95 @@
+# Site settings
+title: Rise Vision Documentation
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://localhost:8000" # the base hostname & protocol for your site
+metaImageUrl: "https://s3.amazonaws.com/Store-Products/Meta"
+faviconUrl: "http://s3.amazonaws.com/Rise-Images/favicons"
+hashTag: ""
+html5mode: "true"
+basehref: "/"
+absoluteurl: "http://localhost:8000/"
+
+# Build settings
+markdown: redcarpet
+
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+
+highlighter: pygments
+
+exclude:
+  - bower.json
+  - node_modules
+  - gulpfile.js
+  - package.json
+  - Gemfile
+  - Gemfile.lock
+  - risevision-documentation.iml
+  - cname-config
+  - test
+  - reports
+  - vendor
+  - circle.yml
+
+
+# Default categories (in order) to appear in the navigation
+developerSections: [
+	['developer/getting-started', 'Getting Started', [
+      ['developer/getting-started/registration', 'Registration']
+    ]],
+    ['developer/core-api', 'Core API', [
+      ['developer/core-api/company', 'Company'],
+      ['developer/core-api/display', 'Display'],
+      ['developer/core-api/user', 'User'],
+      ['developer/core-api/country', 'Country'],
+      ['developer/core-api/timezone', 'Timezone'],
+      ['developer/core-api/presentation', 'Presentation'],
+      ['developer/core-api/schedule', 'Schedule'],
+      ['developer/core-api/systemmessage', 'System Message']
+    ]],
+    ['developer/content-api', 'Content API', [
+      ['developer/content-api/presentations', 'Presentations'],
+      ['developer/content-api/displays', 'Displays']
+    ]],
+    ['developer/viewer-api', 'Viewer API', [
+      ['developer/viewer-api/content', 'Content'],
+      ['developer/viewer-api/notifications', 'Notifications']
+    ]],
+    ['developer/player-api', 'Player API', [
+      ['developer/player-api/cache', 'Cache'],
+      ['developer/player-api/installer', 'Installer'],
+      ['developer/player-api/player', 'Player'],
+      ['developer/player-api/viewer', 'Viewer']
+    ]],
+    ['developer/store-api', 'Store API',[
+      ['developer/store-api/store-auth', 'Store Authorization'],
+      ['developer/store-api/subscription-status', 'Subscription Status']
+    ]],
+    ['developer/storage-api', 'Storage API'],
+    ['developer/presentations', 'Presentations', [
+      ['developer/presentations/multi-page', 'Multi-Page Presentations'],
+      ['developer/presentations/presentation-tutorials', 'Presentation Tutorials']
+    ]],
+    ['developer/widget-api', 'Widgets'],
+    ['developer/web-components', 'Web Components'],
+    ['developer/common-header', 'Common Header']
+]
+
+userSections: [
+    ['user/advanced/', 'Advanced', [
+      ['user/advanced/display', 'Displays']
+]]]
+
+
+# Dates are not included in permalinks
+permalink: /:categories/:title
+relative_permalinks: true
+
+gems:
+  - jekyll-sitemap
+  - jekyll_github_sample
+  - jekyll-lunr-js-search
